@@ -7,8 +7,10 @@ function App() {
 
   return (
     <div className="flex-col">
-      <nav className="flex bg-slate-200 p-2">
-        <button className="border border-black rounded-xl px-2">Upload</button>
+      <nav className="flex bg-slate-200 p-2 justify-between">
+        <div>Logo</div>
+        <div className="border border-black rounded-2xl px-5">search bar</div>
+        <button className="border border-black rounded-xl px-2 cursor-pointer">Upload</button>
       </nav>
       <main className="bg-slate-500 p-2">
         <div>Videos</div>
