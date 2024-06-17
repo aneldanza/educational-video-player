@@ -1,9 +1,9 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import type { FetchBaseQueryMeta, FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { Video } from "../types";
 
 const baseUrl =
-  "https://take-home-assessment-423502.uc.r.appspot.com/api/videos";
+  "https://take-home-assessment-423502.uc.r.appspot.com/api";
 
 
 
@@ -14,7 +14,7 @@ export const videosApi = createApi({
     getVideoByUserId: builder.query<Video, string>({
       query: (userId) => {
         return {
-            url: '/',
+            url: '/videos',
             params: {"user_id": userId}
         }
       },
@@ -29,5 +29,4 @@ export const videosApi = createApi({
   }),
 });
 
-
-// export const { useGetVideoByUserId } = videosApi
+export const { useGetVideoByUserIdQuery } = videosApi
