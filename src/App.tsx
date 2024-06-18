@@ -1,35 +1,41 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useAppSelector } from "./app/hooks";
+import { useGetVideoByUserIdQuery } from "./api/createVideosApi";
+
+const userId = "anel_danza";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const videos = useAppSelector((state) => state.videos.videos);
+  const { data, error, isLoading } = useGetVideoByUserIdQuery(userId);
+
+  const openModal = () => {};
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+    <div className="flex-col">
+      <nav className="flex bg-slate-200 p-2 justify-between">
+        <div>Logo</div>
+        <div className="border border-black rounded-2xl px-5">search bar</div>
+        <button
+          className="border border-black rounded-xl px-2 cursor-pointer"
+          onClick={openModal}
+        >
+          Upload
         </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+      </nav>
+      <main className="bg-slate-500 p-2">
+        {error ? (
+          <div>there was an error!</div>
+        ) : isLoading ? (
+          <div>Loading...</div>
+        ) : data ? (
+          <ul className="flex-col divide-y divide-white">
+            {videos.map((video, i) => {
+              return <li key={`video-${i}`}>{video.title}</li>;
+            })}
+          </ul>
+        ) : null}
+      </main>
+    </div>
+  );
 }
 
-export default App
+export default App;
